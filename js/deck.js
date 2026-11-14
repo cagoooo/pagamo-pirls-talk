@@ -1,0 +1,250 @@
+// 簡報介面元件：主題切換、計時器、複製提示詞、前後對比滑桿、QR Code、文字雲、投票
+import { WORDCLOUDS, POLLS, isReady, submitWord, watchWords, vote, watchPoll, myVote, onStatus } from './interact.js?v=__BUILD_VERSION__';
+
+const DEFAULT_PREF = 'light';
+const THEME_KEY = 'pgpirls1211_theme';
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch { /* 忽略 */ } },
+};
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ESC[c]);
+
+/* ---------- 主題（預設淺色） ---------- */
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = t === 'dark' ? '☀️ 淺色' : '🌙 深色';
+  drawAllClouds();
+}
+document.getElementById('theme-btn')?.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  store.set(THEME_KEY, next);
+  applyTheme(next);
+});
+
+/* ---------- 倒數計時器 ---------- */
+$$('.timer').forEach((box) => {
+  const total = Number(box.dataset.min || 10) * 60;
+  let left = total;
+  let tick = null;
+  const out = box.querySelector('.timer-num');
+  const render = () => {
+    out.textContent = `${String(Math.floor(left / 60)).padStart(2, '0')}:${String(left % 60).padStart(2, '0')}`;
+    box.classList.toggle('ending', left <= 60 && left > 0);
+    box.classList.toggle('done', left === 0);
+  };
+  const stop = () => { clearInterval(tick); tick = null; box.classList.remove('running'); };
+  box.querySelector('[data-t="go"]').addEventListener('click', () => {
+    if (tick) return stop();
+    if (left === 0) left = total;
+    box.classList.add('running');
+    tick = setInterval(() => { left = Math.max(0, left - 1); render(); if (!left) stop(); }, 1000);
+  });
+  box.querySelector('[data-t="reset"]').addEventListener('click', () => { stop(); left = total; render(); });
+  box.querySelector('[data-t="plus"]').addEventListener('click', () => { left += 60; render(); });
+  render();
+});
+
+/* ---------- 複製提示詞 ---------- */
+$$('.prompt').forEach((card) => {
+  const btn = card.querySelector('.copy');
+  btn?.addEventListener('click', async () => {
+    const text = card.querySelector('pre').innerText;
+    try { await navigator.clipboard.writeText(text); btn.textContent = '✓ 已複製'; }
+    catch { btn.textContent = '請手動選取複製'; }
+    setTimeout(() => { btn.textContent = '複製提示詞'; }, 1800);
+  });
+});
+
+/* ---------- 前後對比滑桿 ---------- */
+$$('.viz').forEach((viz) => {
+  const after = viz.querySelector('.viz-after');
+  const line = viz.querySelector('.viz-line');
+  const slider = viz.parentElement.querySelector('.viz-range');
+  const set = (v) => {
+    after.style.clipPath = `inset(0 0 0 ${v}%)`;
+    line.style.left = v + '%';
+    viz.querySelector('.viz-tag.l').style.opacity = v < 12 ? 0 : 1;
+    viz.querySelector('.viz-tag.r').style.opacity = v > 88 ? 0 : 1;
+  };
+  slider.addEventListener('input', () => set(+slider.value));
+  set(+slider.value);
+});
+
+/* ---------- 參與用 QR Code ---------- */
+$$('.qr[data-key]').forEach((box) => {
+  const url = new URL(`join.html#${box.dataset.key}`, location.href).href;
+  const qr = qrcode(0, 'M');
+  qr.addData(url);
+  qr.make();
+  box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+  const link = box.parentElement.querySelector('.qr-url');
+  if (link) { link.textContent = url.replace(/^https?:\/\//, ''); link.href = url; }
+});
+
+
+/* ---------- 即時感：數字變多時跳一下 ---------- */
+function bump(el, value) {
+  const prev = Number(el.textContent) || 0;
+  el.textContent = value;
+  if (value > prev && window.gsap) gsap.fromTo(el, { scale: 1.8, color: '#e8643a' }, { scale: 1, color: '', duration: .6, ease: 'back.out(3)' });
+}
+
+/* ---------- 連線狀態燈 ---------- */
+const STATUS_TEXT = { live: '● 即時同步中', connecting: '● 連線中…', retrying: '● 重新連線中', offline: '● 本機預覽（未連線）' };
+document.querySelectorAll('.wc-side, .poll .join').forEach((host) => {
+  const s = document.createElement('div');
+  s.className = 'live-status';
+  host.appendChild(s);
+  onStatus((st) => { s.textContent = STATUS_TEXT[st] || st; s.dataset.st = st; });
+});
+
+/* ---------- 省額度：翻到那一頁（或它的前一頁）才開始監聽，之後持續即時 ---------- */
+function whenNear(slide, fn) {
+  let done = false;
+  const near = (cur) => {
+    if (!cur) return false;
+    if (cur === slide) return true;
+    const next = cur.nextElementSibling;
+    return next === slide;
+  };
+  const go = () => { if (!done) { done = true; fn(); } };
+  const check = () => { if (!done && near(Reveal.getCurrentSlide())) go(); };
+  const init = () => { check(); Reveal.on('slidechanged', check); };
+  Reveal.isReady() ? init() : Reveal.on('ready', init);
+}
+
+/* ---------- 文字雲 ---------- */
+const clouds = [];
+function cloudColors() {
+  return document.documentElement.dataset.theme === 'dark'
+    ? ['#4fc3f7', '#ff8a5c', '#ffb74d', '#81c784', '#ce93d8', '#80deea']
+    : ['#0b7fb3', '#d4531f', '#b26a00', '#2e7d32', '#7b3fa0', '#00838f'];
+}
+function drawCloud(c) {
+  if (!c.data.length || typeof WordCloud === 'undefined' || !c.canvas.offsetWidth) return;
+  c.canvas.width = c.canvas.offsetWidth;
+  c.canvas.height = c.canvas.offsetHeight;
+  const max = c.data[0][1];
+  const colors = cloudColors();
+  WordCloud(c.canvas, {
+    list: c.data.slice(0, 80).map(([w, n]) => [w, Math.max(22, Math.round((n / max) * 96))]),
+    gridSize: 8,
+    weightFactor: 1,
+    rotateRatio: 0.15,
+    shuffle: false,
+    fontFamily: '"Noto Sans TC", "Microsoft JhengHei", sans-serif',
+    fontWeight: 700,
+    color: () => colors[Math.floor(Math.random() * colors.length)],
+    backgroundColor: 'transparent',
+  });
+}
+function drawAllClouds() {
+  clouds.forEach((c) => { if (c.slide.classList.contains('present')) drawCloud(c); });
+}
+
+$$('.wc[data-key]').forEach((box) => {
+  const key = box.dataset.key;
+  const c = { canvas: box.querySelector('canvas'), data: [], slide: box.closest('section') };
+  clouds.push(c);
+  box.querySelector('.wc-q').textContent = WORDCLOUDS[key].q;
+  const input = box.querySelector('input');
+  input.placeholder = WORDCLOUDS[key].hint;
+  const send = async () => {
+    try { if (await submitWord(key, input.value)) input.value = ''; } catch (e) { console.warn(e); }
+  };
+  box.querySelector('.wc-send').addEventListener('click', send);
+  input.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') send(); });
+  whenNear(c.slide, () => watchWords(key, (data, total) => {
+    c.data = data;
+    bump(box.querySelector('.wc-total'), total);
+    box.querySelector('.wc-empty').style.display = data.length ? 'none' : '';
+    box.querySelector('.wc-list').innerHTML = data.slice(0, 7)
+      .map(([w, n]) => `<li><span>${esc(w)}</span><b>${n}</b></li>`).join('')
+      || '<li class="muted">等待第一個答案…</li>';
+    if (c.slide.classList.contains('present')) drawCloud(c);
+  }, { watchdog: true }));
+});
+
+/* ---------- 投票 ---------- */
+$$('.poll[data-key]').forEach((box) => {
+  const key = box.dataset.key;
+  const cfg = POLLS[key];
+  box.querySelector('.poll-q').textContent = cfg.q;
+  const list = box.querySelector('.poll-opts');
+  list.innerHTML = cfg.options.map((o) => `
+    <button class="poll-opt" data-opt="${o.id}">
+      <span class="poll-label">${esc(o.label)}</span>
+      <span class="poll-bar"><i></i></span>
+      <span class="poll-pct">0%</span>
+    </button>`).join('');
+  const mark = () => $$('.poll-opt', list).forEach((b) => b.classList.toggle('mine', b.dataset.opt === myVote(key)));
+  list.addEventListener('click', async (e) => {
+    const b = e.target.closest('.poll-opt');
+    if (!b) return;
+    try { await vote(key, b.dataset.opt); mark(); } catch (err) { console.warn(err); }
+  });
+  mark();
+  whenNear(box.closest('section'), () => watchPoll(key, (counts, total) => {
+    bump(box.querySelector('.poll-total'), total);
+    cfg.options.forEach((o) => {
+      const pct = total ? Math.round(((counts[o.id] || 0) / total) * 100) : 0;
+      const b = list.querySelector(`[data-opt="${o.id}"]`);
+      b.querySelector('i').style.width = pct + '%';
+      b.querySelector('.poll-pct').textContent = `${pct}%`;
+    });
+  }, { watchdog: true }));
+});
+
+/* ---------- 手機直拿的上下換頁箭頭 ----------
+ * 寬度 435 以下 Reveal 會自動改成上下捲動，內建的左右箭頭也跟著藏起來，學員不知道要上下滑
+ * 顯示與否交給 CSS 的 .reveal-scroll：手機轉橫向或回到電腦寬度就自動消失
+ * 第一次滑動前提示一直留著；之後箭頭停幾秒就隱藏，碰一下螢幕或換完頁又會出現 */
+const swipeNav = document.createElement('nav');
+swipeNav.id = 'swipe-nav';
+swipeNav.className = 'fresh';
+swipeNav.setAttribute('aria-label', '上下換頁');
+const chevron = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>';
+swipeNav.innerHTML = `
+  <button type="button" class="sn-btn sn-prev" aria-label="上一頁">${chevron}</button>
+  <button type="button" class="sn-btn sn-next" aria-label="下一頁">${chevron}</button>
+  <span class="sn-tip">上下滑動換頁</span>`;
+document.body.appendChild(swipeNav);
+
+let snTimer = null;
+const snWake = () => {
+  swipeNav.classList.remove('idle');
+  clearTimeout(snTimer);
+  snTimer = setTimeout(() => swipeNav.classList.add('idle'), 3500);
+};
+const snLearned = () => { swipeNav.classList.remove('fresh'); snWake(); };
+// 看捲動位置不看頁碼：這個模式下 Reveal 的最後一頁有小數誤差，頁碼會停在倒數第二頁
+const snMark = () => {
+  const v = Reveal.getViewportElement();
+  swipeNav.classList.toggle('first', v.scrollTop < 2);
+  swipeNav.classList.toggle('last', v.scrollTop + v.clientHeight > v.scrollHeight - 2);
+};
+swipeNav.querySelector('.sn-prev').addEventListener('click', () => { snLearned(); Reveal.prev(); });
+swipeNav.querySelector('.sn-next').addEventListener('click', () => { snLearned(); Reveal.next(); });
+// 影片播完自動換頁不算學會，手指真的滑過才收起提示
+window.addEventListener('touchmove', snLearned, { once: true, passive: true });
+window.addEventListener('wheel', snLearned, { once: true, passive: true });
+window.addEventListener('pointerdown', snWake, { passive: true });
+const snInit = () => {
+  snMark();
+  Reveal.getViewportElement().addEventListener('scroll', () => {
+    snMark();
+    swipeNav.classList.add('idle');
+    clearTimeout(snTimer);
+    snTimer = setTimeout(snWake, 200);
+  }, { passive: true });
+};
+Reveal.isReady() ? snInit() : Reveal.on('ready', snInit);
+
+applyTheme(store.get(THEME_KEY) === 'dark' ? 'dark' : DEFAULT_PREF);
+if (!isReady()) document.documentElement.classList.add('offline');
+
+Reveal.on('slidechanged', () => setTimeout(drawAllClouds, 450));
+window.addEventListener('resize', () => setTimeout(drawAllClouds, 200));

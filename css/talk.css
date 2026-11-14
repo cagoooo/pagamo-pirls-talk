@@ -1,0 +1,43 @@
+/* 這場分享專用的補充樣式（沿用 deck.css 的變數與元件） */
+
+/* 截圖框 */
+.shot { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 10px; box-shadow: var(--shadow); display: flex; justify-content: center; align-items: center; min-height: 0; overflow: hidden; }
+.shot img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; margin: 0; display: block; }
+.reveal .shot img { max-height: 470px; }
+.shot.tall { align-items: flex-start; }
+.reveal .shot.tall img { max-height: none; width: 100%; height: 470px; object-fit: cover; object-position: top; }
+.shot.mini { padding: 6px; box-shadow: none; }
+.reveal .shot.mini img { max-height: 150px; width: 100%; object-fit: cover; object-position: top center; }
+
+/* 固定網址的 QR Code */
+.qr-static { width: 190px; height: 190px; background: #fff; border-radius: 14px; padding: 8px; box-sizing: border-box; }
+.qr-static.sm { width: 140px; height: 140px; padding: 6px; }
+.qr-static svg { width: 100%; height: 100%; display: block; }
+.qr-row { display: flex; align-items: center; gap: 14px; }
+.qr-pair, .qr-trio { display: flex; justify-content: center; align-items: center; gap: 26px; text-align: center; }
+.qr-pair > div, .qr-trio > div { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 22px; }
+.qr-trio { margin: 18px 0 10px; }
+
+/* 會後回饋：兩個小投票＋參與 QR Code */
+.fb { display: grid; grid-template-columns: 1fr 1fr 200px; gap: 22px; align-items: start; }
+.mini-poll { display: flex; flex-direction: column; gap: 10px; }
+.mini-poll h3 { font-size: 27px; margin: 0 0 4px; }
+.mini-poll .poll-opts { gap: 8px; }
+.mini-poll .poll-opt { grid-template-columns: 1fr 70px; grid-template-rows: auto auto; font-size: 21px; padding: 8px 14px; gap: 4px 10px; }
+.mini-poll .poll-opt .poll-label { grid-column: 1; grid-row: 1; }
+.mini-poll .poll-opt .poll-pct { grid-column: 2; grid-row: 1 / span 2; font-size: 22px; }
+.mini-poll .poll-opt .poll-bar { grid-column: 1; grid-row: 2; height: 10px; }
+.fb-join { text-align: center; }
+
+/* 手機直拿（Reveal 改成上下捲動）時，兩欄改單欄 */
+@media (max-width: 760px) {
+  .fb { grid-template-columns: 1fr; }
+  .qr-trio { flex-wrap: wrap; gap: 14px; }
+}
+
+/* 第 4、5 頁：圖標卡片放大、內容置中，不留大片空白 */
+.big-icards .card.icard { justify-content: center; gap: 4px; }
+.big-icards .ico { width: 104px; height: 104px; border-radius: 26px; }
+.big-icards .ico img { width: 82px; height: 82px; }
+.big-icards .card.icard h3 { font-size: 36px; }
+.big-icards .card.icard p { font-size: 27px; line-height: 1.55; }

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>好文章一鍵變題組｜阿凱老師</title>
+  <meta name="description" content="PaGamO 神隊友社群 2026.12.11 分享簡報：用 Chrome 擴充功能「PIRLS 閱讀題組小幫手」，在任何網頁截圖、讀取全文或反白文字，產生 PIRLS 四層次閱讀題組，檢查修改後一鍵送到 PaGamO 教師後台。" />
+  <meta name="author" content="阿凱老師（桃園市龍潭區石門國民小學）" />
+  <meta name="theme-color" content="#e8643a" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="canonical" href="https://cagoooo.github.io/pagamo-pirls-talk/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="好文章一鍵變題組" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:url" content="https://cagoooo.github.io/pagamo-pirls-talk/" />
+  <meta property="og:title" content="好文章一鍵變題組：用 AI 小幫手把閱讀素養題送進 PaGamO" />
+  <meta property="og:description" content="PaGamO 神隊友社群分享：任何網頁截圖、讀取全文或反白文字，產生 PIRLS 四層次閱讀題組，一鍵送到 PaGamO 教師後台。" />
+  <meta property="og:image" content="https://cagoooo.github.io/pagamo-pirls-talk/og-image.jpg?v=__BUILD_VERSION__" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="好文章一鍵變題組｜阿凱老師・桃園市龍潭區石門國民小學" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://cagoooo.github.io/pagamo-pirls-talk/og-image.jpg?v=__BUILD_VERSION__" />
+  <script>
+    // 預設淺色；只有使用者手動切過深色才套用深色
+    try { if (localStorage.getItem('pgpirls1211_theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="css/deck.css?v=__BUILD_VERSION__" />
+  <link rel="stylesheet" href="css/talk.css?v=__BUILD_VERSION__" />
+</head>
+<body>
+<button id="theme-btn" type="button" aria-label="切換深淺色">🌙 深色</button>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- 1 封面 -->
+<section data-background-image="images/bg_cover.jpg" data-background-size="cover" data-background-opacity="0.92">
+  <div class="s center cover">
+    <div class="glass">
+      <div class="badge" data-a="pop">PaGamO 神隊友社群｜2026.12.11（五）20:00</div>
+      <h1>好文章一鍵變題組</h1>
+      <p class="sub" data-a>用 AI 小幫手把閱讀素養題送進 PaGamO</p>
+      <p class="meta" data-a>分享者　阿凱老師（黃凱揚）・桃園市龍潭區石門國民小學 資訊組長<br>PaGamO Level 3 領航家</p>
+    </div>
+  </div>
+  <aside class="notes">【0:00–0:30】謝謝瑞福老師邀請。今晚 40 分鐘，前半段講為什麼做、怎麼用，中間現場示範，最後聊對 PaGamO 的建議。互動頁網址會貼在 Meet 聊天室。</aside>
+</section>
+
+<!-- 2 我是誰 -->
+<section>
+  <div class="s">
+    <span class="kicker">分享者</span>
+    <h2>我是阿凱老師</h2>
+    <div class="g2 grow" style="grid-template-columns:1.25fr 1fr;align-items:start">
+      <div class="stg" style="display:flex;flex-direction:column;gap:14px">
+        <div class="card accent"><h3>🏫 桃園市龍潭區石門國民小學</h3>資訊組長。學校是「鱻魚特色學園」，每天在第一線用 AI 備課、做教具、處理行政。</div>
+        <div class="card cyan"><h3>🎮 PaGamO Level 3 領航家</h3>跟著神隊友社群，朝 Level 4 講師資格前進。</div>
+        <div class="card ok"><h3>🛠️ 為什麼做這個工具</h3>好文章到處都是，要變成 PIRLS 題組放進 PaGamO 卻很花時間，所以自己動手做了一個小幫手。</div>
+      </div>
+      <div class="card" data-a="right" style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
+        <div class="qr-static" id="qr-akai"></div>
+        <b style="font-size:28px">阿凱老師的教育工具</b>
+        <a href="https://cagoooo.github.io/Akai/" target="_blank" rel="noopener" class="small">cagoooo.github.io/Akai</a>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【0:30–2:00】簡短自我介紹。重點：我也是在學校推 PaGamO 的資訊組長，跟大家遇到的問題一樣。</aside>
+</section>
+
+<!-- 3 破冰文字雲 -->
+<section id="slide-wc-open">
+  <div class="s">
+    <span class="kicker">破冰｜即時文字雲 <span class="live">LIVE</span></span>
+    <h2 class="wc-q-title">出一份閱讀題組，最花時間的是哪一步？</h2>
+    <div class="wc grow" data-key="open">
+      <div class="wc-side">
+        <div class="join"><div class="qr" data-key="open"></div><a class="qr-url" target="_blank" rel="noopener"></a></div>
+        <div class="wc-form"><input type="text" maxlength="20" aria-label="輸入答案" /><button class="btn wc-send" type="button">送出</button></div>
+        <div class="small">已收到 <b class="wc-total">0</b> 則</div>
+        <ul class="wc-list"></ul>
+        <span class="wc-q" hidden></span>
+        <span class="offline-note">本機預覽：互動功能部署後才會連線</span>
+      </div>
+      <div class="wc-stage"><canvas></canvas><div class="wc-empty">點 Meet 聊天室的連結<br>輸入第一個詞，文字雲就會長出來 ✨</div></div>
+    </div>
+  </div>
+  <aside class="notes">【2:00–5:00】把左邊網址（join.html#open）貼到 Meet 聊天室。等 1～2 分鐘，挑兩三個詞回應：大家卡的地方，正是今晚要解決的。</aside>
+</section>
+
+<!-- 4 痛點 -->
+<section>
+  <div class="s">
+    <span class="kicker">老師的日常</span>
+    <h2>好文章到處都有，題組很難出</h2>
+    <div class="g3 grow stg big-icards" style="align-items:stretch">
+      <div class="card icard accent"><div class="ico"><img src="images/icon_keyboard.png" alt="" /></div><h3>文字要重打</h3><p>電子書、PDF、學習單常常不能複製，只好一個字一個字打。</p></div>
+      <div class="card icard cyan"><div class="ico"><img src="images/icon_pyramid.png" alt="" /></div><h3>四個層次難兼顧</h3><p>找答案的題目好出；要推論、統整、評論的題目最花腦力。</p></div>
+      <div class="card icard ok"><div class="ico"><img src="images/icon_upload.png" alt="" /></div><h3>上傳格式麻煩</h3><p>批量上傳範本欄位固定，文章、題目、選項、答案要一格一格貼。</p></div>
+    </div>
+  </div>
+  <aside class="notes">【5:00–7:00】呼應剛才的文字雲。三個卡點剛好對應小幫手的三個功能：讀文字、照層次出題、自動放進 PaGamO。</aside>
+</section>
+
+<!-- 5 PIRLS 四層次 -->
+<section>
+  <div class="s">
+    <span class="kicker">快速複習</span>
+    <h2>PIRLS 四個理解層次</h2>
+    <div class="g4 grow stg big-icards" style="align-items:stretch">
+      <div class="card icard accent"><div class="ico"><img src="images/icon_magnifier.png" alt="" /></div><h3>訊息提取</h3><p>找出文中明確寫出的資訊</p></div>
+      <div class="card icard cyan"><div class="ico"><img src="images/icon_bulb.png" alt="" /></div><h3>直接推論</h3><p>把前後文連起來，推出沒有直接寫的事</p></div>
+      <div class="card icard ok"><div class="ico"><img src="images/icon_puzzle.png" alt="" /></div><h3>詮釋整合</h3><p>統整全文，理解主旨、人物感受</p></div>
+      <div class="card icard warn"><div class="ico"><img src="images/icon_scale.png" alt="" /></div><h3>評估批判</h3><p>評論內容、寫法與作者觀點</p></div>
+    </div>
+    <div class="card" data-a style="font-size:25px;text-align:center">
+      小幫手出題的配比：<span class="chip">8 題：每層 2 題</span>　<span class="chip o">10 題：3／3／2／2</span>
+    </div>
+  </div>
+  <aside class="notes">【7:00–9:00】大家都熟，快速帶過。強調後兩層最難出，也是 AI 最能幫忙起草、老師最需要把關的地方。10 題時是訊息提取、直接推論各 3 題，詮釋整合、評估批判各 2 題。</aside>
+</section>
+
+<!-- 6 解法登場 -->
+<section data-background-image="images/bg_solution.jpg" data-background-size="cover" data-background-opacity="0.92">
+  <div class="s center chapter">
+    <div class="glass">
+      <span class="kicker">解法登場</span>
+      <h2>PIRLS 閱讀題組小幫手</h2>
+      <p class="sub" data-a>Chrome 擴充功能・免費・老師用自己的 Gemini 金鑰</p>
+      <div class="flow stg" style="margin-top:18px">
+        <div class="step"><div class="em">📷</div><b>素材</b>截圖、讀全文、<br>反白文字</div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="em">✨</div><b>出題</b>Gemini 依 PIRLS<br>四層次出題</div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="em">✏️</div><b>檢查</b>老師逐題<br>修改把關</div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="em">🚀</div><b>送出</b>一鍵送到<br>PaGamO 題組</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【9:00–10:30】一句話介紹：在任何網頁上，四個步驟把文章變成 PaGamO 題組。金鑰是老師自己的，存在自己的電腦，不會送到其他地方。</aside>
+</section>
+
+<!-- 7 三種素材入口 -->
+<section>
+  <div class="s">
+    <span class="kicker">第 1 步｜素材</span>
+    <h2>三種方法，把文章交給小幫手</h2>
+    <div class="g2 grow" style="grid-template-columns:.8fr 1.2fr;align-items:center">
+      <div class="shot" data-a="left"><img src="images/step-popup.webp" alt="擴充功能選單：截取這個畫面、讀取這頁全文、開啟工作台、設定與金鑰" /></div>
+      <div class="stg" style="display:flex;flex-direction:column;gap:14px">
+        <div class="card accent"><h3>📷 截取畫面</h3>電子書、PDF、學習單都可以，截圖後在工作台框出文章範圍；文章很長就分段截。</div>
+        <div class="card cyan"><h3>📖 讀取這頁全文</h3>新聞、部落格最好用，自動去掉廣告、選單、留言，只留下正文。</div>
+        <div class="card ok"><h3>🖍️ 反白文字</h3>反白一段文章，按右鍵選「用這段文字出 PIRLS 題組」。</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【10:30–12:30】三個入口各講一句。截圖最適合不能複製文字的電子書和 PDF。等一下示範用「讀取這頁全文」。</aside>
+</section>
+
+<!-- 8 現場示範 -->
+<section>
+  <div class="s">
+    <span class="kicker">現場示範 <span class="live">DEMO</span></span>
+    <h2>從一篇文章到 PaGamO 題目總覽</h2>
+    <div class="task">
+      <div class="card accent">
+        <ol class="stg">
+          <li>打開一篇新聞文章（事先準備好）</li>
+          <li>按工具列圖示 →「<b>讀取這頁全文</b>」</li>
+          <li>選 <b>8 題、中文</b> → 開始出題</li>
+          <li>逐題看一遍，<b>示範改一題</b></li>
+          <li>按「<b>送到 PaGamO（題組版）</b>」</li>
+          <li>在 PaGamO 按「上傳」→ 到題目總覽確認</li>
+        </ol>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="timer" data-min="12" data-a="pop">
+          <span class="lbl">示範倒數</span>
+          <span class="timer-num">12:00</span>
+          <div class="btns"><button class="btn" data-t="go" type="button">開始／暫停</button><button class="btn ghost" data-t="plus" type="button">＋1 分</button><button class="btn ghost" data-t="reset" type="button">重設</button></div>
+        </div>
+        <div class="card small" data-a>📺 在 Meet 只分享 <b>Chrome 分頁</b>；示範用公開文章，畫面上不出現學生資料。</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【12:30–24:30】按「開始」計時。Meet 分享「Chrome 分頁」，不要分享整個螢幕。
+事前準備：①擴充功能更新到最新版（chrome://extensions 看版本）②金鑰已測試成功 ③PaGamO 教師帳號已登入 ④備好一篇公開新聞 ⑤備用：先錄好一段完整操作影片，網路卡住就改播影片。
+示範時口頭提醒：最後的「上傳」是老師自己按，小幫手不會代按。</aside>
+</section>
+
+<!-- 9 老師把關 -->
+<section>
+  <div class="s">
+    <span class="kicker">第 2 步｜檢查</span>
+    <h2>AI 出題，老師把關</h2>
+    <div class="g2 grow" style="grid-template-columns:1fr 1.1fr;align-items:stretch">
+      <div class="shot tall" data-a="left"><img src="images/step-review.webp" alt="工作台：逐題檢查與修改題目，可改題幹、選項、正解、答後講解與 PIRLS 層次" /></div>
+      <div class="card ok stg" style="display:flex;flex-direction:column;gap:10px;font-size:26px">
+        <h3>✅ 送出前看這五件事</h3>
+        <div>① 題幹看得懂，<b>只有一個正解</b></div>
+        <div>② 正解在文章裡<b>找得到線索</b></div>
+        <div>③ 選項長度差不多，沒有一眼就猜得到的</div>
+        <div>④ 答後講解寫出線索、其他選項錯在哪</div>
+        <div>⑤ PIRLS 層次標對了（下拉選單可以改）</div>
+        <div class="small muted" style="margin-top:auto">改完自動儲存，關掉分頁也不會不見。</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【24:30–26:30】這頁是今晚最重要的觀念：AI 出的題一定要老師看過再派給學生。選項是「以上皆是」這類題目，記得在匯出區把選項順序切成「固定」。</aside>
+</section>
+
+<!-- 10 一鍵送到 PaGamO -->
+<section>
+  <div class="s">
+    <span class="kicker">第 3 步｜送出</span>
+    <h2>一鍵送到 PaGamO</h2>
+    <div class="g2 grow" style="grid-template-columns:1.15fr 1fr;align-items:center">
+      <div class="shot" data-a="left"><img src="images/step-send.webp" alt="匯出區：科目、冊次、章節，選項順序隨機，送到 PaGamO 題組版按鈕" /></div>
+      <div class="stg" style="display:flex;flex-direction:column;gap:12px">
+        <div class="card"><span class="num">1</span>先下載一份備份到電腦</div>
+        <div class="card"><span class="num">2</span>自動打開 PaGamO 批量上傳頁</div>
+        <div class="card"><span class="num">3</span>自動選好「題組」、放好檔案</div>
+        <div class="card accent"><span class="num">4</span>老師確認後，自己按「<b>上傳</b>」</div>
+        <div class="small muted">選項順序預設<b>隨機</b>；還沒登入 PaGamO 就先登入，登入後會自動回到上傳頁。</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【26:30–28:00】科目、冊次、章節會記住上次填的。選項隨機：每位學生看到的順序不同，不能靠記「答案是第幾個」猜題。</aside>
+</section>
+
+<!-- 11 以前 vs 現在 -->
+<section>
+  <div class="s">
+    <span class="kicker">前後對比｜拖拉下方滑桿</span>
+    <h2>同一篇文章，出題流程的轉變</h2>
+    <div class="viz" data-a>
+      <div class="viz-before">
+        <h3>📝 以前：全部自己來</h3>
+        <ul>
+          <li>找文章，不能複製就自己打字</li>
+          <li>自己想 8 題，還要兼顧四個層次</li>
+          <li>下載批量上傳範本，一格一格貼上文章、題目、選項、答案</li>
+          <li>選題型、上傳，格式錯了再重來</li>
+        </ul>
+      </div>
+      <div class="viz-after">
+        <h3>✨ 現在：老師當總編輯</h3>
+        <ul>
+          <li>在文章頁按一下，讀取全文或截圖</li>
+          <li>AI 依四個層次起草 8 題，<b>附答後講解</b></li>
+          <li>老師逐題檢查、修改，<b>把關品質</b></li>
+          <li>一鍵送到 PaGamO，<b>自己按上傳</b></li>
+        </ul>
+      </div>
+      <div class="viz-line"></div>
+      <span class="viz-tag l">以前</span><span class="viz-tag r">現在</span>
+    </div>
+    <input class="viz-range" type="range" min="0" max="100" value="78" aria-label="前後對比滑桿" />
+  </div>
+  <aside class="notes">【28:00–29:30】拖滑桿對比。省下的時間，拿去挑好文章、看學生作答結果。</aside>
+</section>
+
+<!-- 12 不只 PaGamO -->
+<section>
+  <div class="s">
+    <span class="kicker">延伸</span>
+    <h2>不只 PaGamO</h2>
+    <div class="g2 grow" style="align-items:stretch">
+      <div class="card accent stg" style="display:flex;flex-direction:column;gap:10px">
+        <h3>🃏 LoiLoNote 測驗卡</h3>
+        <div>・<b>題組檔</b>：只有題目，文章另外發給學生</div>
+        <div>・<b>含文章版</b>：文章放在題目前面，讀完再作答</div>
+        <div class="shot mini" style="margin-top:auto"><img src="images/shot-loilo.jpg" alt="工作台的 LoiLoNote 測驗卡匯出區塊" /></div>
+      </div>
+      <div class="card cyan stg" style="display:flex;flex-direction:column;gap:10px">
+        <h3>🌐 網站版：PIRLS 閱讀理解生成站</h3>
+        <div>・Wayground、Kahoot 試算表</div>
+        <div>・Wordwall 貼題準備表</div>
+        <div>・教師 PDF（含解答）、學生閱讀素材 PDF</div>
+        <div class="qr-row" style="margin-top:auto"><div class="qr-static sm" id="qr-site"></div><a href="https://cagoooo.github.io/pirls-questioncraft/" target="_blank" rel="noopener" class="small">cagoooo.github.io/pirls-questioncraft</a></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【29:30–31:00】學校同時用 LoiLoNote 的老師可以直接匯入測驗卡（擴充功能 0.6.0 起）。分享前先確認商店版本已更新到 0.6.0。網站版適合要匯出到其他平台或印紙本的老師。</aside>
+</section>
+
+<!-- 13 投票 -->
+<section id="slide-poll-source">
+  <div class="s">
+    <span class="kicker">大家的選擇｜即時投票 <span class="live">LIVE</span></span>
+    <h2 class="poll-q-title">你最想先拿哪一種素材來出題？</h2>
+    <div class="poll grow" data-key="source">
+      <div class="poll-opts"></div>
+      <div class="join">
+        <div class="qr" data-key="source"></div><a class="qr-url" target="_blank" rel="noopener"></a>
+        <div class="small" style="margin-top:8px">已投票 <b class="poll-total">0</b> 人</div>
+        <span class="poll-q" hidden></span>
+        <span class="offline-note">本機預覽：互動功能部署後才會連線</span>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【31:00–33:00】把 join.html#source 貼到聊天室。看結果回應：選最多的那一種，可以用哪個入口最快。</aside>
+</section>
+
+<!-- 14 安裝 -->
+<section>
+  <div class="s">
+    <span class="kicker">今晚就能用</span>
+    <h2>三步驟裝起來</h2>
+    <div class="flow stg">
+      <div class="step"><div class="em">🛒</div><b>① 商店安裝</b>Chrome 線上應用程式商店<br>按「加到 Chrome」</div>
+      <div class="arrow">›</div>
+      <div class="step"><div class="em">🧩</div><b>② 釘選</b>按右上角拼圖圖示，<br>把小幫手釘到工具列</div>
+      <div class="arrow">›</div>
+      <div class="step"><div class="em">🔑</div><b>③ 設定金鑰</b>貼上 Gemini 金鑰<br>按「儲存並測試」</div>
+    </div>
+    <div class="g2 grow" style="grid-template-columns:1.5fr 1fr;align-items:stretch">
+      <div class="card warn" data-a style="font-size:26px">
+        <h3>⚠️ 申請金鑰請用個人 Gmail</h3>
+        到 Google AI Studio 申請免費金鑰時，<b>不要用學校信箱</b>，用個人帳號申請才能使用免費額度。<br>
+        <span class="small muted">金鑰只存在老師自己的電腦，不會送到其他地方。</span>
+      </div>
+      <div class="card qr-pair" data-a="right">
+        <div><div class="qr-static sm" id="qr-store"></div><b>商店安裝</b></div>
+        <div><div class="qr-static sm" id="qr-guide"></div><b>圖文說明</b></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【33:00–35:00】商店與說明頁連結也貼到聊天室，Padlet 也會放。學校電腦若不能從商店安裝，說明頁有手動安裝方式。</aside>
+</section>
+
+<!-- 15 給 PaGamO 的建議 -->
+<section>
+  <div class="s">
+    <span class="kicker">一線老師的心聲</span>
+    <h2>給 PaGamO 的 AI 功能建議</h2>
+    <div class="g2 grow stg" style="align-items:stretch">
+      <div class="card accent"><h3>📎 題組上傳多一點欄位</h3>批量上傳題組時，能放文章插圖、段落編號，閱讀題組更完整。</div>
+      <div class="card cyan"><h3>✨ 後台直接從文章出題</h3>貼上文章就能產生 PIRLS 題組，並標示每一題的層次。</div>
+      <div class="card ok"><h3>📊 報表看得到層次</h3>作答結果依四個層次統計，一眼看出孩子卡在哪一層。</div>
+      <div class="card warn"><h3>🔌 開放官方上傳介面</h3>讓學校自製的工具直接送題，不必模擬操作畫面。</div>
+    </div>
+  </div>
+  <aside class="notes">【35:00–38:00】（草稿，請阿凱老師改成自己的想法，並先確認 PaGamO 現有的 AI 功能，已經有的就改成「使用心得」。）邀請現場的 PaGamO 夥伴回應。</aside>
+</section>
+
+<!-- 16 Q&A -->
+<section data-background-image="images/bg_closing.jpg" data-background-size="cover" data-background-opacity="0.92">
+  <div class="s center chapter">
+    <div class="glass">
+      <span class="kicker">Q&amp;A</span>
+      <h2>謝謝大家，歡迎提問！</h2>
+      <div class="qr-trio" data-a>
+        <div><div class="qr-static sm" id="qr-store2"></div><b>商店安裝</b></div>
+        <div><div class="qr-static sm" id="qr-guide2"></div><b>圖文說明</b></div>
+        <div><div class="qr-static sm" id="qr-join"></div><b>互動與回饋</b></div>
+      </div>
+      <p class="small" data-a>會後到縣市 LINE 社群分享時，互動頁有一段可以<b>一鍵複製</b>的分享文字。</p>
+    </div>
+  </div>
+  <aside class="notes">【38:00–39:00】開放提問。提醒大家社群規定會後要到縣市 LINE 社群分享，互動頁「會後分享」分頁可以一鍵複製。</aside>
+</section>
+
+<!-- 17 會後回饋 -->
+<section id="slide-feedback">
+  <div class="s">
+    <span class="kicker">會後回饋｜即時統計 <span class="live">LIVE</span></span>
+    <h2>花一分鐘，給我一點回饋</h2>
+    <div class="fb grow">
+      <div class="poll mini-poll" data-key="rate">
+        <h3 class="poll-q"></h3>
+        <div class="poll-opts"></div>
+        <div class="small">已填 <b class="poll-total">0</b> 人</div>
+      </div>
+      <div class="poll mini-poll" data-key="use">
+        <h3 class="poll-q"></h3>
+        <div class="poll-opts"></div>
+        <div class="small">已填 <b class="poll-total">0</b> 人</div>
+      </div>
+      <div class="join fb-join">
+        <div class="qr" data-key="feedback"></div><a class="qr-url" target="_blank" rel="noopener"></a>
+        <div class="small">還有一題：<br>今晚最有收穫的一個詞</div>
+        <span class="offline-note">本機預覽：互動功能部署後才會連線</span>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">【39:00–40:00】把 join.html#feedback 貼到聊天室。回饋結果會留在資料庫，會後打開 report.html 可以列印成一頁成果紀錄。</aside>
+</section>
+
+</div>
+</div>
+
+<!-- 阿凱老師署名（不可省） -->
+<footer class="akai-footer">
+  Made with ❤️ by
+  <a href="https://www.smes.tyc.edu.tw/modules/school/index.php?department_id=2&zone_id=0&page_id=2&content_id=11&type=news&from_op=all_news#a5" target="_blank" rel="noopener">阿凱老師</a>
+  · 桃園市龍潭區石門國民小學
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    width: 1280,
+    height: 720,
+    margin: 0.03,
+    center: false,
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    backgroundTransition: 'fade',
+    progress: true,
+    controls: true,
+    slideNumber: 'c/t',
+    plugins: [RevealNotes],
+  });
+  // 固定網址的 QR Code
+  var STORE = 'https://chromewebstore.google.com/detail/cfbehdinangicblpbnockoofeccmoidp';
+  var GUIDE = 'https://cagoooo.github.io/pirls-questioncraft/extension/';
+  var JOIN = new URL('join.html', location.href).href;
+  [['qr-akai', 'https://cagoooo.github.io/Akai/'], ['qr-site', 'https://cagoooo.github.io/pirls-questioncraft/'],
+   ['qr-store', STORE], ['qr-guide', GUIDE], ['qr-store2', STORE], ['qr-guide2', GUIDE], ['qr-join', JOIN]].forEach(function (pair) {
+    var el = document.getElementById(pair[0]);
+    if (!el) return;
+    var qr = qrcode(0, 'M');
+    qr.addData(pair[1]);
+    qr.make();
+    el.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+  });
+</script>
+<script src="js/motion.js?v=__BUILD_VERSION__"></script>
+<script type="module" src="js/deck.js?v=__BUILD_VERSION__"></script>
+<script src="js/sw-register.js?v=__BUILD_VERSION__"></script>
+</body>
+</html>
