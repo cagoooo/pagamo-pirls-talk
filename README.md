@@ -5,6 +5,7 @@
 - 簡報：<https://cagoooo.github.io/pagamo-pirls-talk/>（按 `S` 開講者備註，每頁有時間區間）
 - 互動參與頁：`join.html`（文字雲、投票、會後回饋、會後 LINE 分享文字）
 - 成果紀錄頁：`report.html`（會後讀取所有互動結果，可列印成 PDF）
+- 彩排模式：任何頁面網址加 `?test=1`（例如 `index.html?test=1`），互動資料存到 `pgpirls1211test_` 集合，不會混進正式紀錄
 
 互動資料存在 Firebase 專案 `akai-slide-interact`，集合名稱以 `pgpirls1211_` 開頭。Firebase 設定由部署流程從 GitHub Secrets 注入，原始碼只放佔位符。
 

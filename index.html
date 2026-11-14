@@ -431,7 +431,7 @@
   // 固定網址的 QR Code
   var STORE = 'https://chromewebstore.google.com/detail/cfbehdinangicblpbnockoofeccmoidp';
   var GUIDE = 'https://cagoooo.github.io/pirls-questioncraft/extension/';
-  var JOIN = new URL('join.html', location.href).href;
+  var JOIN = new URL('join.html' + (/[?&]test=1\b/.test(location.search) ? '?test=1' : ''), location.href).href;
   [['qr-akai', 'https://cagoooo.github.io/Akai/'], ['qr-site', 'https://cagoooo.github.io/pirls-questioncraft/'],
    ['qr-store', STORE], ['qr-guide', GUIDE], ['qr-store2', STORE], ['qr-guide2', GUIDE], ['qr-join', JOIN]].forEach(function (pair) {
     var el = document.getElementById(pair[0]);

@@ -1,5 +1,5 @@
 // 簡報介面元件：主題切換、計時器、複製提示詞、前後對比滑桿、QR Code、文字雲、投票
-import { WORDCLOUDS, POLLS, isReady, submitWord, watchWords, vote, watchPoll, myVote, onStatus } from './interact.js?v=__BUILD_VERSION__';
+import { WORDCLOUDS, POLLS, isReady, submitWord, watchWords, vote, watchPoll, myVote, onStatus, TEST } from './interact.js?v=__BUILD_VERSION__';
 
 const DEFAULT_PREF = 'light';
 const THEME_KEY = 'pgpirls1211_theme';
@@ -75,7 +75,8 @@ $$('.viz').forEach((viz) => {
 
 /* ---------- 參與用 QR Code ---------- */
 $$('.qr[data-key]').forEach((box) => {
-  const url = new URL(`join.html#${box.dataset.key}`, location.href).href;
+  // 彩排模式（?test=1）時，參與網址也帶著 test=1，資料才會存到彩排用的集合
+  const url = new URL(`join.html${TEST ? '?test=1' : ''}#${box.dataset.key}`, location.href).href;
   const qr = qrcode(0, 'M');
   qr.addData(url);
   qr.make();

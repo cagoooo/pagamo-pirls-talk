@@ -8,7 +8,19 @@ import { getAuth, onAuthStateChanged, signInAnonymously } from 'https://www.gsta
 import { firebaseConfig } from './firebase-config.js?v=__BUILD_VERSION__';
 
 // 集合名稱一律加簡報代號，避免跟其他場次的資料混在一起
-export const SLUG = 'pgpirls1211';
+// 彩排模式：網址加 ?test=1，資料存到另一組集合，不會混進 12/11 當晚的正式紀錄
+export const TEST = /[?&]test=1\b/.test(location.search);
+export const SLUG = TEST ? 'pgpirls1211test' : 'pgpirls1211';
+if (TEST) {
+  const tag = () => {
+    const el = document.createElement('div');
+    el.textContent = '🧪 彩排模式：資料不會算進正式紀錄';
+    el.style.cssText = 'position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:99999;background:#7b3fa0;color:#fff;'
+      + 'font:700 14px "Noto Sans TC",sans-serif;padding:6px 14px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.2);pointer-events:none';
+    document.body.appendChild(el);
+  };
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', tag) : tag();
+}
 
 export const WORDCLOUDS = {
   open: { q: '出一份閱讀題組，最花時間的是哪一步？', hint: '例如：找文章、打字、想選項…' },
