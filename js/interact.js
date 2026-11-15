@@ -15,8 +15,8 @@ if (TEST) {
   const tag = () => {
     const el = document.createElement('div');
     el.textContent = '🧪 彩排模式：資料不會算進正式紀錄';
-    el.style.cssText = 'position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:99999;background:#7b3fa0;color:#fff;'
-      + 'font:700 14px "Noto Sans TC",sans-serif;padding:6px 14px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.2);pointer-events:none';
+    el.style.cssText = 'position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:99999;background:#0b1428;color:#4cc9f0;border:2px dashed #4cc9f0;'
+      + 'font:700 14px "Noto Sans TC",sans-serif;padding:5px 14px;border-radius:8px;box-shadow:0 4px 0 #070d1c;pointer-events:none';
     document.body.appendChild(el);
   };
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', tag) : tag();
