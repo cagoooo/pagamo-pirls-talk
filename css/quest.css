@@ -1,0 +1,174 @@
+/* 冒險關卡風（2026-11-15 改版）：深夜地圖底、RPG 對話框、任務卡、關卡 HUD
+ * 疊在 deck.css＋talk.css 之後，只覆寫外觀，不動互動功能 */
+[data-theme="dark"], [data-theme="light"] {
+  --bg: #101b33;
+  --surface: #1a2a4d;
+  --surface2: #22355e;
+  --ink: #fdf6e3;
+  --muted: #b9c4dc;
+  --line: #34497a;
+  --accent: #ffd166;
+  --accent-ink: #ffd166;
+  --accent-fill: #ffd166;
+  --on-fill: #101b33;
+  --accent2: #4cc9f0;
+  --accent2-soft: #4cc9f0;
+  --success: #06d6a0;
+  --warn: #ff9f43;
+  --danger: #ef476f;
+  --coral: #ef476f;
+  --tile: #0b1428;
+  --shadow: 0 6px 0 #0a1224;
+  --glass: rgba(13, 22, 44, .86);
+  --bg-img-opacity: .95;
+  color-scheme: dark;
+}
+
+/* 夜空地圖底：星點＋淡淡的地圖格線 */
+html, body, .reveal-viewport {
+  background-color: #101b33;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255, 209, 102, .55) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 72% 14%, rgba(255, 255, 255, .45) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 86% 68%, rgba(76, 201, 240, .45) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 34% 82%, rgba(255, 255, 255, .35) 0 1px, transparent 1.6px),
+    linear-gradient(rgba(76, 201, 240, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(76, 201, 240, .045) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 120%, #1d3466 0%, #101b33 60%);
+  background-size: 340px 340px, 260px 260px, 300px 300px, 220px 220px, 48px 48px, 48px 48px, 100% 100%;
+}
+
+.reveal h1, .reveal h2 { color: var(--ink); text-shadow: 0 4px 0 #070d1c; }
+.reveal h3 { color: var(--ink); }
+.reveal strong, .reveal b { color: #ffd166; }
+.reveal a { color: #4cc9f0; }
+
+/* 章節標籤 → 任務標籤 */
+.kicker {
+  font-size: 20px; letter-spacing: .08em; color: #ffd166;
+  border: 2px solid #ffd166; border-radius: 6px; padding: 3px 14px 3px 10px;
+  background: rgba(255, 209, 102, .08);
+}
+.kicker::before {
+  content: '▶'; width: auto; height: auto; background: none; border-radius: 0;
+  font-size: 15px; color: #ffd166;
+}
+.s { padding-top: 58px; }
+
+/* 卡片 → 任務卡（硬陰影＋上緣色條） */
+.card {
+  background: var(--surface); border: 2px solid var(--line); border-radius: 12px;
+  box-shadow: 0 6px 0 #0a1224;
+}
+.card.accent { border-top: 6px solid #ffd166; }
+.card.cyan { border-top: 6px solid #4cc9f0; }
+.card.ok { border-top: 6px solid #06d6a0; }
+.card.warn { border-top: 6px solid #ef476f; }
+.card .num { background: #ffd166; color: #101b33; border-radius: 6px; }
+.icard p { color: var(--muted); }
+.ico {
+  background: #0b1428; border: 3px solid #ffd166; border-radius: 16px;
+  box-shadow: 0 5px 0 #070d1c;
+}
+.card.cyan .ico { border-color: #4cc9f0; }
+.card.ok .ico { border-color: #06d6a0; }
+.card.warn .ico { border-color: #ef476f; }
+.chip { background: #22355e; border: 2px solid var(--line); color: var(--ink); border-radius: 6px; }
+.chip.o { background: rgba(255, 209, 102, .14); border-color: #ffd166; color: #ffd166; }
+
+/* 封面／章節 → RPG 對話框 */
+.glass {
+  background: var(--glass); backdrop-filter: blur(4px);
+  border: 3px solid #ffd166; border-radius: 14px;
+  box-shadow: 0 0 0 5px #101b33, 0 0 0 8px #34497a, 0 14px 0 8px rgba(5, 10, 22, .55);
+}
+.badge { background: #ffd166; color: #101b33; border-radius: 6px; font-weight: 900; }
+.cover h1 { font-size: 84px; color: #fff8e6; text-shadow: 0 5px 0 #070d1c, 0 0 28px rgba(255, 209, 102, .35); }
+.cover .sub { color: #ffd166; }
+.cover .meta { color: var(--muted); }
+.chapter h2 { color: #fff8e6; }
+.chapter .sub { color: #ffd166; }
+
+/* 流程 → 關卡節點 */
+.flow .step { background: var(--surface); border: 2px solid var(--line); border-radius: 12px; box-shadow: 0 6px 0 #0a1224; }
+.flow .step b { color: #ffd166; }
+.flow .arrow { color: #ffd166; }
+
+/* 截圖框 */
+.shot { background: #0b1428; border: 3px solid var(--line); border-radius: 12px; box-shadow: 0 6px 0 #0a1224; }
+
+/* 計時器 → 倒數沙漏 */
+.timer { background: #0b1428; border: 3px solid #ffd166; border-radius: 14px; box-shadow: 0 6px 0 #070d1c; }
+.timer-num { color: #ffd166; }
+.timer .btn { background: #ffd166; color: #101b33; }
+.btn, .copy { background: #ffd166; color: #101b33; border-radius: 8px; }
+[data-theme="dark"] .btn, [data-theme="dark"] .copy { color: #101b33; }
+.btn.ghost { background: transparent; color: var(--ink); border: 2px solid var(--line); }
+
+/* 前後對比 */
+.viz { border: 3px solid var(--line); border-radius: 14px; box-shadow: 0 6px 0 #0a1224; }
+.viz-before { background: #16223f; }
+.viz-after { background: #1f3260; }
+.viz-line { background: #ffd166; box-shadow: 0 0 18px #ffd166; }
+.viz-tag.r { background: #ffd166; color: #101b33; border-radius: 6px; }
+.viz-tag.l { border-radius: 6px; }
+.viz-range { accent-color: #ffd166; }
+
+/* 文字雲／投票 → 血條 */
+.wc-stage { background: #0f1a33; border: 3px solid var(--line); border-radius: 14px; box-shadow: 0 6px 0 #0a1224; }
+.wc-form input { background: #0b1428; border: 2px solid var(--line); }
+.wc-list b { color: #ffd166; }
+.poll-opt { border: 2px solid var(--line); border-radius: 12px; box-shadow: 0 5px 0 #0a1224; }
+.poll-opt.mine { border-color: #ffd166; outline: 2px solid #ffd166; }
+.poll-bar { background: #0b1428; border: 2px solid #34497a; border-radius: 4px; height: 18px; }
+.poll-bar i { background: repeating-linear-gradient(90deg, #06d6a0 0 14px, #05b88a 14px 16px); border-radius: 0; }
+.poll-pct { color: #ffd166; }
+.live { background: #ef476f; border-radius: 4px; }
+
+/* 固定 UI */
+#theme-btn { display: none; }
+.akai-footer { background: rgba(11, 20, 40, .85); color: var(--muted); border: 1px solid #34497a; }
+.akai-footer a { color: #ffd166; border-bottom-color: #ffd166; }
+.reveal .controls { color: #ffd166; }
+.reveal .progress { color: #ffd166; background: rgba(255, 255, 255, .08); }
+
+/* ---------- 關卡 HUD（js/quest.js 會填內容） ---------- */
+#hud {
+  position: fixed; top: 10px; left: 14px; right: 14px; z-index: 31; pointer-events: none;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Silkscreen', 'Noto Sans TC', monospace;
+}
+#hud .stage {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(11, 20, 40, .88); border: 2px solid #ffd166; border-radius: 8px;
+  padding: 4px 12px; color: #ffd166; font-size: 15px;
+}
+#hud .stage .name { font-family: 'Noto Sans TC', sans-serif; font-weight: 900; color: #fdf6e3; font-size: 16px; }
+#hud .xp {
+  display: inline-flex; align-items: center; gap: 8px; color: #b9c4dc; font-size: 14px;
+  background: rgba(11, 20, 40, .88); border: 2px solid #34497a; border-radius: 8px; padding: 4px 10px;
+}
+#hud .xp .bar { width: 150px; height: 12px; background: #0b1428; border: 2px solid #34497a; border-radius: 3px; overflow: hidden; }
+#hud .xp .bar i { display: block; height: 100%; width: 0; transition: width .5s ease;
+  background: repeating-linear-gradient(90deg, #ffd166 0 10px, #e6b84f 10px 12px); }
+#hud.hide { display: none; }
+
+/* 進入新關卡時的提示 */
+#stage-toast {
+  position: fixed; left: 50%; top: 42%; z-index: 40; pointer-events: none;
+  transform: translate(-50%, -50%); text-align: center; opacity: 0;
+  background: rgba(11, 20, 40, .94); border: 3px solid #ffd166; border-radius: 14px;
+  box-shadow: 0 0 0 5px #101b33, 0 0 0 8px #34497a; padding: 16px 40px;
+}
+#stage-toast .no { font-family: 'Silkscreen', monospace; font-size: 34px; color: #ffd166; letter-spacing: .06em; }
+#stage-toast .name { font-family: 'Noto Sans TC', sans-serif; font-weight: 900; font-size: 30px; color: #fdf6e3; }
+
+html.print-pdf #hud, html.print-pdf #stage-toast { display: none; }
+@media print { #hud, #stage-toast { display: none; } }
+@media (max-width: 760px) {
+  #hud .xp { display: none; }
+  #hud .stage { font-size: 12px; }
+}
+
+/* 頂部多了 HUD，長截圖框縮一點，不要壓到底線 */
+.reveal .shot.tall img { height: 440px; }

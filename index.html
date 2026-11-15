@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-TW" data-theme="light">
+<html lang="zh-TW" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>好文章一鍵變題組｜阿凱老師</title>
   <meta name="description" content="PaGamO 神隊友社群 2026.12.11 分享簡報：用 Chrome 擴充功能「PIRLS 閱讀題組小幫手」，在任何網頁截圖、讀取全文或反白文字，產生 PIRLS 四層次閱讀題組，檢查修改後一鍵送到 PaGamO 教師後台。" />
   <meta name="author" content="阿凱老師（桃園市龍潭區石門國民小學）" />
-  <meta name="theme-color" content="#e8643a" />
+  <meta name="theme-color" content="#101b33" />
   <link rel="icon" href="favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -25,26 +25,22 @@
   <meta property="og:image:alt" content="好文章一鍵變題組｜阿凱老師・桃園市龍潭區石門國民小學" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://cagoooo.github.io/pagamo-pirls-talk/og-image.jpg?v=__BUILD_VERSION__" />
-  <script>
-    // 預設淺色；只有使用者手動切過深色才套用深色
-    try { if (localStorage.getItem('pgpirls1211_theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Silkscreen&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
   <link rel="stylesheet" href="css/deck.css?v=__BUILD_VERSION__" />
   <link rel="stylesheet" href="css/talk.css?v=__BUILD_VERSION__" />
+  <link rel="stylesheet" href="css/quest.css?v=__BUILD_VERSION__" />
 </head>
 <body>
-<button id="theme-btn" type="button" aria-label="切換深淺色">🌙 深色</button>
 
 <div class="reveal">
 <div class="slides">
 
 <!-- 1 封面 -->
-<section data-background-image="images/bg_cover.jpg" data-background-size="cover" data-background-opacity="0.92">
+<section data-stage="1|出發準備" data-background-image="images/quest_cover.jpg" data-background-size="cover" data-background-opacity="0.95">
   <div class="s center cover">
     <div class="glass">
       <div class="badge" data-a="pop">PaGamO 神隊友社群｜2026.12.11（五）20:00</div>
@@ -98,7 +94,7 @@
 </section>
 
 <!-- 4 痛點 -->
-<section>
+<section data-stage="2|魔王出現：題組難出">
   <div class="s">
     <span class="kicker">老師的日常</span>
     <h2>好文章到處都有，題組很難出</h2>
@@ -130,7 +126,7 @@
 </section>
 
 <!-- 6 解法登場 -->
-<section data-background-image="images/bg_solution.jpg" data-background-size="cover" data-background-opacity="0.92">
+<section data-stage="3|取得神器" data-background-image="images/quest_solution.jpg" data-background-size="cover" data-background-opacity="0.95">
   <div class="s center chapter">
     <div class="glass">
       <span class="kicker">解法登場</span>
@@ -168,7 +164,7 @@
 </section>
 
 <!-- 8 現場示範 -->
-<section>
+<section data-stage="4|實戰闖關">
   <div class="s">
     <span class="kicker">現場示範 <span class="live">DEMO</span></span>
     <h2>從一篇文章到 PaGamO 題目總覽</h2>
@@ -239,7 +235,7 @@
 </section>
 
 <!-- 11 以前 vs 現在 -->
-<section>
+<section data-stage="5|收集寶藏">
   <div class="s">
     <span class="kicker">前後對比｜拖拉下方滑桿</span>
     <h2>同一篇文章，出題流程的轉變</h2>
@@ -340,7 +336,7 @@
 </section>
 
 <!-- 15 Q&A -->
-<section data-background-image="images/bg_closing.jpg" data-background-size="cover" data-background-opacity="0.92">
+<section data-stage="CLEAR!|營火時間" data-background-image="images/quest_closing.jpg" data-background-size="cover" data-background-opacity="0.95">
   <div class="s center chapter">
     <div class="glass">
       <span class="kicker">Q&amp;A</span>
@@ -428,6 +424,7 @@
   });
 </script>
 <script src="js/motion.js?v=__BUILD_VERSION__"></script>
+<script src="js/quest.js?v=__BUILD_VERSION__"></script>
 <script type="module" src="js/deck.js?v=__BUILD_VERSION__"></script>
 <script src="js/sw-register.js?v=__BUILD_VERSION__"></script>
 </body>

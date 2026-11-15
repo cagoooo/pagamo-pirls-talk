@@ -90,7 +90,7 @@ $$('.qr[data-key]').forEach((box) => {
 function bump(el, value) {
   const prev = Number(el.textContent) || 0;
   el.textContent = value;
-  if (value > prev && window.gsap) gsap.fromTo(el, { scale: 1.8, color: '#e8643a' }, { scale: 1, color: '', duration: .6, ease: 'back.out(3)' });
+  if (value > prev && window.gsap) gsap.fromTo(el, { scale: 1.8, color: '#ffd166' }, { scale: 1, color: '', duration: .6, ease: 'back.out(3)' });
 }
 
 /* ---------- 連線狀態燈 ---------- */
@@ -121,7 +121,7 @@ function whenNear(slide, fn) {
 const clouds = [];
 function cloudColors() {
   return document.documentElement.dataset.theme === 'dark'
-    ? ['#4fc3f7', '#ff8a5c', '#ffb74d', '#81c784', '#ce93d8', '#80deea']
+    ? ['#ffd166', '#4cc9f0', '#06d6a0', '#ff8fa3', '#fdf6e3', '#ffb35c']
     : ['#0b7fb3', '#d4531f', '#b26a00', '#2e7d32', '#7b3fa0', '#00838f'];
 }
 function drawCloud(c) {
