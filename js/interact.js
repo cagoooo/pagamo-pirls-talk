@@ -12,6 +12,7 @@ import { firebaseConfig } from './firebase-config.js?v=__BUILD_VERSION__';
 export const TEST = /[?&]test=1\b/.test(location.search);
 export const SLUG = TEST ? 'pgpirls1211test' : 'pgpirls1211';
 if (TEST) {
+  document.documentElement.classList.add('test-mode');   // 讓新版本通知往下讓位，不要疊在彩排標籤上
   const tag = () => {
     const el = document.createElement('div');
     el.textContent = '🧪 彩排模式：資料不會算進正式紀錄';

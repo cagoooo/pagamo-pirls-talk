@@ -31,6 +31,7 @@
       'box-sizing:border-box;display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 24px);',
       'background:#0b1428;color:#fdf6e3;padding:8px 8px 8px 18px;border:3px solid #ffd166;border-radius:12px;box-shadow:0 0 0 4px #101b33,0 0 0 6px #34497a,0 10px 0 6px rgba(5,10,22,.55);',
       "font:600 16px/1.35 'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;animation:swIn .35s cubic-bezier(.2,.9,.3,1.2)}",
+      '@media (min-width:561px){html.test-mode #sw-update-bar{top:max(52px,env(safe-area-inset-top))}}',
       '#sw-update-bar *{box-sizing:border-box}',
       '#sw-update-bar .sw-msg{display:flex;flex-direction:column;min-width:0}',
       '#sw-update-bar .sw-title{white-space:nowrap}',
