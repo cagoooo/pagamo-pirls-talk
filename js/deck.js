@@ -80,7 +80,11 @@ $$('.qr[data-key]').forEach((box) => {
   const qr = qrcode(0, 'M');
   qr.addData(url);
   qr.make();
-  box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+  // QR Code 本身也是連結（線上簡報點了就開新分頁）
+  const a = document.createElement('a');
+  Object.assign(a, { href: url, target: '_blank', rel: 'noopener', className: 'qr-link', title: '點一下開新分頁' });
+  a.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+  box.replaceChildren(a);
   const link = box.parentElement.querySelector('.qr-url');
   if (link) { link.textContent = url.replace(/^https?:\/\//, ''); link.href = url; }
 });
