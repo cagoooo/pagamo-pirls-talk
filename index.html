@@ -149,10 +149,10 @@
         <a class="qr-cap primary" href="https://cagoooo.github.io/pirls-questioncraft/extension/" target="_blank" rel="noopener">🧩 擴充功能介紹與安裝 <span aria-hidden="true">↗</span></a>
         <a class="qr-cap" href="https://chromewebstore.google.com/detail/cfbehdinangicblpbnockoofeccmoidp" target="_blank" rel="noopener">🛒 直接到 Chrome 商店 <span aria-hidden="true">↗</span></a>
       </div>
-      <p class="qr-hint" data-a>💬 連結也貼在 Meet 聊天室，可以邊聽邊裝</p>
+      <p class="qr-hint" data-a><button class="chat-copy" type="button">📋 一鍵複製全部連結</button> 貼到 Meet 聊天室，大家可以邊聽邊裝</p>
     </div>
   </div>
-  <aside class="notes">【9:00–10:30】這頁一出現就把擴充功能說明頁 https://cagoooo.github.io/pirls-questioncraft/extension/ 貼到 Meet 聊天室。一句話介紹：在任何網頁上，四個步驟把文章變成 PaGamO 題組。金鑰是老師自己的，存在自己的電腦，不會送到其他地方。</aside>
+  <aside class="notes">【9:00–10:30】這頁一出現就按「📋 一鍵複製全部連結」，貼到 Meet 聊天室（安裝、說明、申請金鑰、教學影片、互動頁、簡報網址一次到位）。一句話介紹：在任何網頁上，四個步驟把文章變成 PaGamO 題組。金鑰是老師自己的，存在自己的電腦，不會送到其他地方。</aside>
 </section>
 
 <!-- 7 四種素材入口＋依年級改寫 -->
@@ -342,11 +342,11 @@
         <div><div class="qr-static sm" id="qr-store"></div><a class="qr-cap primary" href="https://chromewebstore.google.com/detail/cfbehdinangicblpbnockoofeccmoidp" target="_blank" rel="noopener">🛒 加到 Chrome <span aria-hidden="true">↗</span></a></div>
         <div><div class="qr-static sm" id="qr-guide"></div><a class="qr-cap" href="https://cagoooo.github.io/pirls-questioncraft/extension/" target="_blank" rel="noopener">📘 圖文說明 <span aria-hidden="true">↗</span></a></div>
         <div><div class="qr-static sm" id="qr-video"></div><a class="qr-cap" href="https://youtu.be/Pn3XxfHRySw" target="_blank" rel="noopener">🎬 操作教學 <span aria-hidden="true">↗</span></a></div>
-        <p class="qr-hint">💬 連結也貼在 Meet 聊天室｜開著簡報可直接點 QR Code 或按鈕</p>
+        <p class="qr-hint"><button class="chat-copy" type="button">📋 一鍵複製全部連結</button> 貼到 Meet 聊天室｜QR Code 也能直接點</p>
       </div>
     </div>
   </div>
-  <aside class="notes">【33:00–35:00】這頁一出現就把三個連結貼到 Meet 聊天室（或貼簡報網址，老師點 QR Code／按鈕就能開新分頁），Padlet 也會放。請大家現在就邊聽邊裝。學校電腦若不能從商店安裝，說明頁有手動安裝方式。第三個 QR Code 是約 5 分鐘的教學影片（11/12 錄製，基本操作；YouTube 出題、依年級改寫、自動上傳是之後新增的，影片裡沒有），讓大家回去慢慢看。</aside>
+  <aside class="notes">【33:00–35:00】這頁一出現就按「📋 一鍵複製全部連結」貼到 Meet 聊天室（老師點 QR Code／按鈕也能開新分頁），Padlet 也會放。請大家現在就邊聽邊裝。學校電腦若不能從商店安裝，說明頁有手動安裝方式。第三個 QR Code 是約 5 分鐘的教學影片（11/12 錄製，基本操作；YouTube 出題、依年級改寫、自動上傳是之後新增的，影片裡沒有），讓大家回去慢慢看。</aside>
 </section>
 
 <!-- 15 Q&A -->
@@ -362,6 +362,7 @@
         <div><div class="qr-static sm" id="qr-join"></div><a class="qr-cap" id="cap-join" href="join.html" target="_blank" rel="noopener">💬 互動與回饋 <span aria-hidden="true">↗</span></a></div>
       </div>
       <p class="small" data-a>會後到縣市 LINE 社群分享時，互動頁有一段可以<b>一鍵複製</b>的分享文字。</p>
+      <p class="qr-hint" data-a><button class="chat-copy" type="button">📋 一鍵複製全部連結</button> 再貼一次到 Meet 聊天室，晚到的老師也拿得到</p>
     </div>
   </div>
   <aside class="notes">【35:00–39:00】開放提問（約 4 分鐘）。線上有 PaGamO 夥伴，可以邀請他們開麥克風或在聊天室回應老師的問題。提醒大家社群規定會後要到縣市 LINE 社群分享，互動頁「會後分享」分頁可以一鍵複製。</aside>
@@ -448,6 +449,37 @@
   });
   var capJoin = document.getElementById('cap-join');
   if (capJoin) capJoin.href = JOIN;
+  // 一鍵複製全部連結：講者貼到 Google Meet 聊天室（純文字、一行一個連結，Meet 會自動變成可點的網址）
+  var CHAT_TEXT = [
+    '📌 PIRLS 閱讀題組小幫手（Chrome 擴充功能，免費）',
+    '🛒 安裝：' + STORE,
+    '📘 圖文說明：' + GUIDE,
+    '🔑 申請 Gemini 金鑰（請用個人 Gmail，不要用學校信箱）：https://aistudio.google.com/apikey',
+    '🎬 5 分鐘教學影片：' + VIDEO,
+    '💬 互動與回饋：' + JOIN,
+    '🖥️ 今晚的簡報：' + location.origin + location.pathname.replace(/index\.html$/, ''),
+  ].join('\n');
+  document.querySelectorAll('.chat-copy').forEach(function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var done = function (ok) {
+        btn.textContent = ok ? '✓ 已複製，貼到聊天室' : '複製失敗，請到互動頁「安裝連結」';
+        btn.classList.toggle('done', ok);
+        setTimeout(function () { btn.textContent = label; btn.classList.remove('done'); }, 2500);
+      };
+      var fallback = function () {
+        var ta = document.createElement('textarea');
+        ta.value = CHAT_TEXT; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = false; try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+        ta.remove(); done(ok);
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(CHAT_TEXT).then(function () { done(true); }, fallback);
+      else fallback();
+    });
+  });
+  window.__chatText = CHAT_TEXT;
 </script>
 <script src="js/motion.js?v=__BUILD_VERSION__"></script>
 <script src="js/quest.js?v=__BUILD_VERSION__"></script>

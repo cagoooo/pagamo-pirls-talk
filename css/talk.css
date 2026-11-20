@@ -37,6 +37,12 @@
 .cta-row .qr-cap { font-size: 26px; padding: 10px 22px; }
 .glass .qr-hint { margin-top: 10px; }
 .glass.wide { width: 1100px; max-width: 100%; box-sizing: border-box; }
+/* 一鍵複製全部連結（貼到 Meet 聊天室） */
+.chat-copy { font: inherit; font-size: 18px; font-weight: 700; padding: 4px 12px; margin-right: 6px; border-radius: 999px; cursor: pointer; vertical-align: middle;
+  color: var(--accent); background: rgba(255, 209, 102, .1); border: 2px dashed var(--accent); transition: transform .12s ease; }
+.chat-copy:hover { transform: translateY(-2px); }
+.chat-copy.done { border-style: solid; background: var(--success); border-color: var(--success); color: #101b33; }
+.chat-copy:focus-visible { outline: 3px solid var(--accent2); outline-offset: 3px; }
 
 /* 會後回饋：兩個小投票＋參與 QR Code */
 .fb { display: grid; grid-template-columns: 1fr 1fr 200px; gap: 22px; align-items: start; }
