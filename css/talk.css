@@ -33,6 +33,10 @@
 .qr-hint { flex-basis: 100%; margin: 0; font-size: 18px; color: var(--muted); }
 .qr-pair .qr-cap { font-size: 19px; padding: 5px 11px; }
 .card.qr-pair { column-gap: 14px; align-content: center; }
+.cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 18px; margin-top: 22px; }
+.cta-row .qr-cap { font-size: 26px; padding: 10px 22px; }
+.glass .qr-hint { margin-top: 10px; }
+.glass.wide { width: 1100px; max-width: 100%; box-sizing: border-box; }
 
 /* 會後回饋：兩個小投票＋參與 QR Code */
 .fb { display: grid; grid-template-columns: 1fr 1fr 200px; gap: 22px; align-items: start; }
